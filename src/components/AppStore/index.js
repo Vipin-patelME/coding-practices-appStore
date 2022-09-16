@@ -297,19 +297,30 @@ const initialAppsList = [
 class AppStore extends Component {
   state = {
     userInput: '',
-    appList: initialAppsList,
+    activeTabId: tabsList[0].tabId,
   }
 
   onSearch = event => {
     this.setState({userInput: event.target.value})
   }
 
-  filterCategoryApp = tabId => {}
+  updatedAppList = () => {
+    const {activeTabId} = this.state
+    const filteredAppList = initialAppsList.filter(
+      eachApps => eachApps.category === activeTabId,
+    )
+    return filteredAppList
+  }
+
+  filterCategoryApp = tabId => {
+    this.setState({activeTabId: tabId})
+  }
 
   render() {
-    const {userInput, appList} = this.state
-    const filterderApp = appList.filter(eachAppList =>
-      eachAppList.appName.includes(userInput),
+    const {userInput} = this.state
+    const newFilteredAppList = this.updatedAppList()
+    const filterderApp = newFilteredAppList.filter(eachAppList =>
+      eachAppList.lower().appName.includes(userInput),
     )
 
     return (
