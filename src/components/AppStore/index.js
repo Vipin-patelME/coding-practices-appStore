@@ -320,7 +320,7 @@ class AppStore extends Component {
     const {userInput} = this.state
     const newFilteredAppList = this.updatedAppList()
     const filterderApp = newFilteredAppList.filter(eachAppList =>
-      eachAppList.lower().appName.includes(userInput),
+      eachAppList.appName.includes(userInput),
     )
 
     return (
